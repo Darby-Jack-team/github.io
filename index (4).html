@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHAP — Combating Household Air Pollution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --teal-mid: #1D9E75;
+    --teal-dark: #085041;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --gray: #5F5E5A;
+    --gray-light: #F1EFE8;
+    --gray-dark: #2C2C2A;
+    --text: #1a1a18;
+    --muted: #5F5E5A;
+    --border: #D3D1C7;
+    --white: #fff;
+    --bg: #fafaf8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--text); background: var(--bg); font-size: 16px; line-height: 1.7; }
+  h1, h2, h3, h4 { font-family: 'Libre Baskerville', serif; font-weight: 400; line-height: 1.3; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0 2rem; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .nav-logo { font-family: 'Libre Baskerville', serif; font-size: 1.15rem; color: var(--teal-dark); text-decoration: none; letter-spacing: -0.01em; }
+  .nav-logo span { color: var(--muted); font-style: italic; font-size: 0.85rem; margin-left: 8px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--teal); }
+
+  .hero { background: var(--teal-dark); color: white; padding: 7rem 2rem 6rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -80px; width: 500px; height: 500px; border-radius: 50%; background: rgba(29,158,117,0.15); }
+  .hero::after { content: ''; position: absolute; bottom: -100px; left: 40%; width: 300px; height: 300px; border-radius: 50%; background: rgba(186,117,23,0.12); }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-tag { display: inline-block; background: rgba(29,158,117,0.3); color: #9FE1CB; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 6px 14px; border-radius: 20px; margin-bottom: 1.5rem; border: 1px solid rgba(159,225,203,0.2); }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); color: white; margin-bottom: 1.5rem; letter-spacing: -0.02em; line-height: 1.15; }
+  .hero h1 em { color: #9FE1CB; font-style: italic; }
+  .hero-desc { font-size: 1.1rem; color: rgba(255,255,255,0.72); max-width: 600px; line-height: 1.75; margin-bottom: 2.5rem; }
+  .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.85); font-size: 0.83rem; padding: 7px 16px; border-radius: 20px; }
+
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-mid); font-weight: 500; margin-bottom: 0.75rem; }
+  .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--teal-dark); margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .section-lead { font-size: 1.05rem; color: var(--muted); max-width: 640px; margin-bottom: 3rem; line-height: 1.75; }
+  .divider { width: 40px; height: 2px; background: var(--teal-mid); margin: 1.25rem 0 2rem; }
+
+  #about { background: white; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--muted); margin-bottom: 1.1rem; line-height: 1.8; }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .stat-box { background: var(--teal-light); border-radius: 12px; padding: 1.25rem 1rem; text-align: center; }
+  .stat-num { font-family: 'Libre Baskerville', serif; font-size: 1.9rem; color: var(--teal-dark); display: block; line-height: 1; margin-bottom: 4px; }
+  .stat-lbl { font-size: 0.78rem; color: var(--teal); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+  .about-map-placeholder { background: var(--gray-light); border-radius: 14px; min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--border); gap: 10px; }
+  .map-icon { width: 48px; height: 48px; background: var(--teal-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+  #team { background: var(--bg); }
+  .team-section-title { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+  .pi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3.5rem; }
+  .pi-card { background: white; border-radius: 14px; border: 1px solid var(--border); padding: 1.75rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; }
+  .pi-card:hover { box-shadow: 0 6px 28px rgba(8,80,65,0.1); transform: translateY(-2px); }
+  .avatar { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Libre Baskerville', serif; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; flex-shrink: 0; letter-spacing: 0.04em; }
+  .av-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .av-amber { background: var(--amber-light); color: #633806; }
+  .av-blue { background: #E6F1FB; color: #0C447C; }
+  .av-purple { background: #EEEDFE; color: #3C3489; }
+  .pi-name { font-family: 'Libre Baskerville', serif; font-size: 1.05rem; color: var(--text); margin-bottom: 3px; }
+  .pi-inst { font-size: 0.82rem; color: var(--teal); font-weight: 500; margin-bottom: 0.75rem; }
+  .pi-role { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+  .team-collab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .collab-card { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 1.25rem 1rem; transition: border-color 0.2s; }
+  .collab-card:hover { border-color: var(--teal-mid); }
+  .collab-name { font-weight: 500; font-size: 0.93rem; color: var(--text); margin-bottom: 3px; }
+  .collab-inst { font-size: 0.78rem; color: var(--teal); font-weight: 500; }
+
+  #research { background: white; }
+  .areas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .area-card { border-radius: 14px; padding: 1.75rem; border: 1px solid var(--border); background: var(--bg); position: relative; overflow: hidden; text-decoration: none; display: block; transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; }
+  .area-card:hover { box-shadow: 0 6px 24px rgba(8,80,65,0.1); transform: translateY(-2px); border-color: var(--teal-mid); }
+  .area-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--teal-mid); border-radius: 4px 0 0 4px; }
+  .area-num { font-family: 'Libre Baskerville', serif; font-size: 2rem; color: var(--teal-light); line-height: 1; margin-bottom: 0.5rem; }
+  .area-title { font-family: 'Libre Baskerville', serif; font-size: 1.05rem; color: var(--teal-dark); margin-bottom: 0.6rem; }
+  .area-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .area-link { font-size: 0.78rem; color: var(--teal-mid); font-weight: 500; margin-top: 0.75rem; display: flex; align-items: center; gap: 4px; }
+
+  #funders { background: var(--bg); }
+  .funders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+  .funder-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+
+  footer { background: var(--teal-dark); color: rgba(255,255,255,0.7); padding: 4rem 2rem 3rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; }
+  .footer-brand h3 { font-family: 'Libre Baskerville', serif; color: white; font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .footer-brand p { font-size: 0.85rem; line-height: 1.7; }
+  .footer-col h4 { color: white; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col a:hover { color: #9FE1CB; }
+  .footer-bottom { max-width: 1100px; margin: 3rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: rgba(255,255,255,0.35); display: flex; justify-content: space-between; align-items: center; }
+
+  @media (max-width: 860px) {
+    .about-grid, .pi-grid, .areas-grid, .funders-grid { grid-template-columns: 1fr; }
+    .team-collab-grid { grid-template-columns: 1fr 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .team-collab-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">CHAP <span>Combating Household Air Pollution</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#funders">Funders</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Research Collaboration</div>
+    <h1>Combating<br><em>Household Air Pollution</em></h1>
+    <p class="hero-desc">
+      A multi-institutional research project investigating the health, behavioral, and policy dimensions of polluting fuel use and clean cooking to then develop scalable solutions and accelerate the transition in Ghana.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">KHRC — Kintampo Health Research Centre</span>
+      <span class="pill">Columbia University</span>
+      <span class="pill">UC Berkeley</span>
+      <span class="pill">UC Santa Barbara</span>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About the Project</p>
+        <h2 class="section-title">Understand the problem, search for solutions</h2>
+        <div class="divider"></div>
+        <p>Globally, over 2 billion people cook with polluting fuels like firewood or charcoal, leading to household air pollution, 2-3 million untimely deaths per year, deforestation, and 1-3% of global green house gas emissions. Air pollution ranks as the second-highest risk factor for death and disability in Ghana, where the majorityof households burn solid fuels.</p>
+        <p>CHAP combines methods from public health, development economics, and energy research to study the health and climate impacts of clean cooking technologies and help evaluate and accelerate interventions in Ghana. Our work leverages national cooking fuel surveys, randomized controlled trials tracking exposure and health outcomes, field experiements studying how distance and price affect demand for clean cooking fuels, and the development of GasPay, a digital financial platform to help households save for and access LPG.</p>
+        <p>While this collaboration started in 2007, our most recent work is an RCT testing GasPay in Techiman, Bono East Region, since 2025.</p>
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">2007</span>
+            <span class="stat-lbl">Collaboration since</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">7,398</span>
+            <span class="stat-lbl">Households surveyed</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">1,988</span>
+            <span class="stat-lbl">GasPay users</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="about-map-placeholder">
+          <div class="map-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <p style="font-weight:500; color:#5F5E5A;">Primary Field Sites</p>
+          <p style="font-size:0.82rem; color:#888780; text-align:center; padding: 0 2rem;">Kintampo &amp; Techiman<br>Bono East Region, Ghana</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="section-inner">
+    <p class="section-label">The Team</p>
+    <h2 class="section-title">Principal Investigators &amp; Collaborators</h2>
+    <div class="divider"></div>
+
+    <p class="team-section-title">Principal Investigators</p>
+    <div class="pi-grid">
+      <div class="pi-card">
+        <div class="avatar av-teal">KPA</div>
+        <p class="pi-name">Kwaku Poku Asante</p>
+        <p class="pi-inst">Kintampo Health Research Centre (KHRC)</p>
+        <p class="pi-role">Principal Investigator. Director at KHRC, with broad expertise in field-based epidemiology and population health research in Ghana.</p>
+      </div>
+      <div class="pi-card">
+        <div class="avatar av-blue">DJ</div>
+        <p class="pi-name">Darby Jack</p>
+        <p class="pi-inst">Columbia University</p>
+        <p class="pi-role">Principal Investigator. Environmental and global health researcher focusing on energy, air quality, and health outcomes in low-income settings.</p>
+      </div>
+      <div class="pi-card">
+        <div class="avatar av-amber">KJ</div>
+        <p class="pi-name">Kelsey Jack</p>
+        <p class="pi-inst">UC Berkeley</p>
+        <p class="pi-role">Principal Investigator. Development economist whose work centers on household decision-making, environmental behavior, and field experiments in Africa.</p>
+      </div>
+    </div>
+
+    <p class="team-section-title">Collaborators &amp; Research Team</p>
+    <div class="team-collab-grid">
+      <div class="collab-card">
+        <div class="avatar av-teal" style="width:40px;height:40px;font-size:0.78rem;margin-bottom:0.75rem;">AA</div>
+        <p class="collab-name">Alex Appiah</p>
+        <p class="collab-inst">KHRC</p>
+      </div>
+      <div class="collab-card">
+        <div class="avatar av-teal" style="width:40px;height:40px;font-size:0.78rem;margin-bottom:0.75rem;">MM</div>
+        <p class="collab-name">Mohammed Mujtaba</p>
+        <p class="collab-inst">KHRC</p>
+      </div>
+      <div class="collab-card">
+        <div class="avatar av-blue" style="width:40px;height:40px;font-size:0.78rem;margin-bottom:0.75rem;">AGW</div>
+        <p class="collab-name">Annelise Gill-Wiehl</p>
+        <p class="collab-inst">Columbia University</p>
+      </div>
+      <div class="collab-card">
+        <div class="avatar av-blue" style="width:40px;height:40px;font-size:0.78rem;margin-bottom:0.75rem;">EH</div>
+        <p class="collab-name">Erin Harned</p>
+        <p class="collab-inst">Columbia University</p>
+      </div>
+      <div class="collab-card">
+        <div class="avatar av-blue" style="width:40px;height:40px;font-size:0.78rem;margin-bottom:0.75rem;">YX</div>
+        <p class="collab-name">Yingchen Xu</p>
+        <p class="collab-inst">Columbia University</p>
+      </div>
+      <div class="collab-card">
+        <div class="avatar av-purple" style="width:40px;height:40px;font-size:0.78rem;margin-bottom:0.75rem;">HL</div>
+        <p class="collab-name">Heather Lahr</p>
+        <p class="collab-inst">UC Santa Barbara</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="section-inner">
+    <p class="section-label">Research</p>
+    <h2 class="section-title">Areas of Investigation</h2>
+    <div class="divider"></div>
+    <p class="section-lead">Our research spans multiple interconnected themes from the health burden of indoor air pollution, to behavioral and economic barriers to clean fuel adoption, to building and testing digital tools to accelerate the energy transition.</p>
+
+    <div class="areas-grid">
+
+      <a class="area-card" href="papers/jack-2024-nature-energy.pdf" target="_blank">
+        <div class="area-num">01</div>
+        <h3 class="area-title">Health Impacts of HAP</h3>
+        <p class="area-desc">Air pollution is the second-highest risk factor for death and disability in Ghana. Our longitudinal RCT tracks impacts of LPG adoption on birth weight, infant growth, blood pressure, and lung function over 12 years of follow-up.</p>
+        <p class="area-link">View paper &rarr;</p>
+      </a>
+
+      <a class="area-card" href="papers/kar_et_al.pdf" target="_blank">
+        <div class="area-num">02</div>
+        <h3 class="area-title">Household Energy Survey</h3>
+        <p class="area-desc">A nationwide survey of 7,398 primary cooks across all 16 regions of Ghana measuring cooking practices, stove stacking, fuel expenditures, and the socioeconomic determinants of LPG use and transition. Spending on charcoal is similar to spending on LPG.</p>
+        <p class="area-link">View paper &rarr;</p>
+      </a>
+
+      <a class="area-card" href="papers/demand_study.pdf" target="_blank">
+        <div class="area-num">03</div>
+        <h3 class="area-title">Rural LPG Demand</h3>
+        <p class="area-desc">A randomized field study in Kintampo varying LPG prices and distances to exchange depots. Rural consumers' demand is highly sensitive to both. Convenience matters as much as cost. CRM creates opportunity for decentralized distribution.</p>
+        <p class="area-link">View paper &rarr;</p>
+      </a>
+
+      <a class="area-card" href="papers/NPA_policy_memo_rural_urban.pdf" target="_blank">
+        <div class="area-num">04</div>
+        <h3 class="area-title">Urban Subsidies &amp; Targeting</h3>
+        <p class="area-desc">A two-stage experiment in Techiman testing targeted subsidies for small LPG cylinders used by lower-income households. Subsidy budgets can be reduced by 30% with no loss in demand. Low-income consumers may use LPG if they can overcome savings constraints.</p>
+        <p class="area-link">View paper &rarr;</p>
+      </a>
+
+      <a class="area-card" href="papers/concept_note_gaspay.pdf" target="_blank">
+        <div class="area-num">05</div>
+        <h3 class="area-title">GasPay: Digital Finance for LPG</h3>
+        <p class="area-desc">A digital payments platform linking consumers with LPG suppliers via dedicated savings wallets, mobile ordering, and savings bonuses. Preliminary RCT evidence from 1,800 participants shows GasPay increases any LPG use by 10–15% and reduces charcoal spending.</p>
+        <p class="area-link">View paper &rarr;</p>
+      </a>
+
+      <a class="area-card" href="papers/3_27_26_MoE_brief.pdf" target="_blank">
+        <div class="area-num">06</div>
+        <h3 class="area-title">Energy Transition &amp; Climate</h3>
+        <p class="area-desc">Modeling climate implications of clean cooking scenarios for Ghana. A full charcoal-to-LPG transition via GasPay could avoid 2.4 Mt CO₂e per year, or ~10% of Ghana's total estimated emissions. LPG is less expensive per MJ-delivered energy than charcoal or firewood.</p>
+        <p class="area-link">View paper &rarr;</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="funders">
+  <div class="section-inner">
+    <p class="section-label">Support</p>
+    <h2 class="section-title">Funders &amp; Partners</h2>
+    <div class="divider"></div>
+    <p class="section-lead">We gratefully acknowledge support from the following organizations.</p>
+    <div class="funders-grid">
+      <div class="funder-card">Columbia World Projects</div>
+      <div class="funder-card">J-PAL — Abdul Latif Jameel Poverty Action Lab</div>
+      <div class="funder-card">CEGA — Center for Effective Global Action</div>
+      <div class="funder-card">National Institutes of Health (NIH)</div>
+      <div class="funder-card">Ghana Health Service / KHRC</div>
+      <div class="funder-card">BRAC Institute of Governance &amp; Development</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>CHAP</h3>
+      <p>Combating Household Air Pollution<br>A multi-institutional research collaboration based in Kintampo and Techiman, Ghana.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Institutions</h4>
+      <ul>
+        <li><a href="https://www.kintampo-hrc.org" target="_blank">Kintampo Health Research Centre</a></li>
+        <li><a href="https://www.publichealth.columbia.edu/profile/darby-jack-phd" target="_blank">Columbia University</a></li>
+        <li><a href="https://haas.berkeley.edu/faculty/b-kelsey-jack/" target="_blank">UC Berkeley</a></li>
+        <li><a href="https://www.ucsb.edu" target="_blank">UC Santa Barbara</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#research">Research Areas</a></li>
+        <li><a href="#funders">Funders</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>CHAP Research Collaboration</span>
+    <span>KHRC · Columbia · UC Berkeley · UCSB</span>
+  </div>
+</footer>
+
+</body>
+</html>
